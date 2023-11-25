@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manageable Table</title>
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        /* border: 1px solid; */
+      }
+
+      .container h2 {
+        text-align: center;
+      }
+
+      table {
+        width: 100%;
+        border: 1px solid;
+        border-collapse: collapse;
+      }
+      tr {
+        border: 1px solid;
+      }
+
+      th,
+      td {
+        border: 1px solid #000000;
+        padding: 5px;
+      }
+
+      th {
+        background-color: #f9f9f9;
+        font-weight: bold;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      .container {
+        margin: 20px;
+      }
+
+      .editable-cell {
+        padding: 0;
+      }
+
+      .editable-cell input {
+        width: 100%;
+        border: none;
+        background-color: transparent;
+        box-sizing: border-box;
+        padding: 4px 8px;
+        font-size: 14px;
+      }
+    </style>
+
+    <script type="text/babel">
+      function App() {
+        const [data, setData] = React.useState([
+          {
+            row1: 1,
+            name: "Onboarding Call",
+            col1: "",
+            col2: "",
+            col3: "",
+            col4: "",
+            col5: "",
+            col6: "",
+          },
+          {
+            row2: 2,
+            name: "Google Search Console Access",
+            col1: "",
+            col2: "",
+            col3: "",
+            col4: "",
+            col5: "",
+            col6: "",
+          },
+          {
+            row3: 3,
+            name: "Google Analytics Access",
+            col1: "",
+            col2: "",
+            col3: "",
+            col4: "",
+            col5: "",
+            col6: "",
+          },
+          {
+            row4: 4,
+            name: "Website Access",
+            col1: "",
+            col2: "",
+            col3: "",
+            col4: "",
+            col5: "",
+            col6: "",
+          },
+          {
+            row5: 5,
+            name: "Technical Audit",
+            col1: "",
+            col2: "",
+            col3: "",
+            col4: "",
+            col5: "",
+            col6: "",
+          },
+          {
+            row6: 6,
+            name: "Anchor Text and Semantic Analysis",
+            col1: "",
+            col2: "",
+            col3: "",
+            col4: "",
+            col5: "",
+            col6: "",
+          },
+          {
+            row7: 7,
+            name: "Competitor Analysis",
+            col1: "",
+            col2: "",
+            col3: "",
+            col4: "",
+            col5: "",
+            col6: "",
+          },
+          {
+            row8: 8,
+            name: "Anchor Text URL/ Mapping",
+            col1: "",
+            col2: "",
+            col3: "",
+            col4: "",
+            col5: "",
+            col6: "",
+          },
+          {
+            row9: 9,
+            name: "Google Data Studio Report + LocalReporting Suite",
+            col1: "",
+            col2: "",
+            col3: "",
+            col4: "",
+            col5: "",
+            col6: "",
+          },
+          {
+            row10: 10,
+            name: "Site Level Optimization",
+            col1: "",
+            col2: "",
+            col3: "",
+            col4: "",
+            col5: "",
+            col6: "",
+          },
+          {
+            row11: 11,
+            name: "On Page Optimization",
+            col1: "",
+            col2: "",
+            col3: "",
+            col4: "",
+            col5: "",
+            col6: "",
+          },
+          {
+            row12: 12,
+            name: "Content Creation",
+            col1: "",
+            col2: "",
+            col3: "",
+            col4: "",
+            col5: "",
+            col6: "",
+          },
+          {
+            row13: 13,
+            name: "Content Publishing",
+            col1: "",
+            col2: "",
+            col3: "",
+            col4: "",
+            col5: "",
+            col6: "",
+          },
+          {
+            row14: 14,
+            name: "Premium Press Release",
+            col1: "",
+            col2: "",
+            col3: "",
+            col4: "",
+            col5: "",
+            col6: "",
+          },
+          {
+            row15: 15,
+            name: "Authority Niche Placements",
+            col1: "",
+            col2: "",
+            col3: "",
+            col4: "",
+            col5: "",
+            col6: "",
+          },
+          {
+            row16: 16,
+            name: "Review Management",
+            col1: "",
+            col2: "",
+            col3: "",
+            col4: "",
+            col5: "",
+            col6: "",
+          },
+          {
+            row17: 17,
+            name: "index Links",
+            col1: "",
+            col2: "",
+            col3: "",
+            col4: "",
+            col5: "",
+            col6: "",
+          },
+          {
+            row18: 18,
+            name: "Video Recap",
+            col1: "",
+            col2: "",
+            col3: "",
+            col4: "",
+            col5: "",
+            col6: "",
+          },
+        ]);
+
+        const handleChange = (index, column, value) => {
+          const updatedData = [...data];
+          updatedData[index][column] = value;
+          // Update the data variable with the updated data
+          setData(updatedData);
+        };
+
+        console.log(data);
+        return (
+          <div className="container">
+            <h2>IWCNetwork Work Sheet</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>S.No.</th>
+                  <th>Month 1</th>
+                  <th>Col1</th>
+                  <th>Col2</th>
+                  <th>Col3</th>
+                  <th>Col4</th>
+                  <th>Col5</th>
+                  <th>Col6</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((item, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{item.name}</td>
+                      <td className="editable-cell">
+                        <input
+                          type="text"
+                          value={item.col1}
+                          onChange={(e) =>
+                            handleChange(index, "col1", e.target.value)
+                          }
+                        />
+                      </td>
+                      <td className="editable-cell">
+                        <input
+                          type="text"
+                          value={item.col2}
+                          onChange={(e) =>
+                            handleChange(index, "col2", e.target.value)
+                          }
+                        />
+                      </td>
+                      <td className="editable-cell">
+                        <input
+                          type="text"
+                          value={item.col3}
+                          onChange={(e) =>
+                            handleChange(index, "col3", e.target.value)
+                          }
+                        />
+                      </td>
+                      <td className="editable-cell">
+                        <input
+                          type="text"
+                          value={item.col4}
+                          onChange={(e) =>
+                            handleChange(index, "col4", e.target.value)
+                          }
+                        />
+                      </td>
+                      <td className="editable-cell">
+                        <input
+                          type="text"
+                          value={item.col5}
+                          onChange={(e) =>
+                            handleChange(index, "col5", e.target.value)
+                          }
+                        />
+                      </td>
+                      <td className="editable-cell">
+                        <input
+                          type="text"
+                          value={item.col6}
+                          onChange={(e) =>
+                            handleChange(index, "col6", e.target.value)
+                          }
+                        />
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        );
+      }
+
+      // Render the App component using createRoot
+      const rootElement = document.getElementById("root");
+      const root = ReactDOM.createRoot(rootElement);
+      root.render(<App />);
+    </script>
+  </body>
+</html>
