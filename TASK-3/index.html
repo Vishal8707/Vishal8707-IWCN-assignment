@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React API Post Example</title>
+</head>
+<body>
+
+<div id="root"></div>
+<link rel="stylesheet" href="index.css">
+<!-- Include React and ReactDOM from a CDN -->
+<script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+<!-- Include Axios from a CDN -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<!-- Your React component -->
+<script>
+  // Your React component code goes here
+
+  const { useState } = React;
+
+  const MyComponent = () => {
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [responseData, setResponseData] = useState(null);
+
+    const handleSubmit = async (e) => {
+  e.preventDefault(); // Prevents the default form submission behavior
+
+  try {
+    const response = await axios.post('https://chimpu.xyz/api/post.php', {
+      phonenumber: phoneNumber,
+    });
+
+    console.log('Full Response:', response);
+
+    if (response.status === 200) {
+      // Get response data
+      const responseBody = response.data;
+
+      // Log the response headers
+      const headersObject = response.headers;
+
+      console.log('Response Headers:', headersObject);
+      console.log('Response Data:', responseBody);
+
+      // Update state with the received headers and response data
+      setResponseData({ headers: headersObject, data: responseBody });
+
+      // Display an alert message
+      alert('Do you want to submit!');
+    } else {
+      console.error('Failed to fetch data. Status:', response.status, 'Data:', response.data);
+      alert('Failed to fetch data. Check console for details.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('An error occurred. Check console for details.');
+  }
+};
+
+    return (
+      React.createElement('div', null,
+        React.createElement('form', { onSubmit: handleSubmit },
+          React.createElement('label', null,
+            'Phone Number:',
+            React.createElement('input', {
+              type: 'text',
+              value: phoneNumber,
+              onChange: (e) => setPhoneNumber(e.target.value),
+            })
+          ),
+          React.createElement('button', { type: 'submit' }, 'Submit')
+        ),
+        responseData && (
+          React.createElement('div', null,
+            React.createElement('h2', null, 'Response Data:'),
+            React.createElement('pre', null, JSON.stringify(responseData, null, 2))
+          )
+        )
+      )
+    );
+  };
+
+  // Render the component into the root element
+  ReactDOM.render(
+    React.createElement(MyComponent),
+    document.getElementById('root')
+  );
+</script>
+
+</body>
+</html>

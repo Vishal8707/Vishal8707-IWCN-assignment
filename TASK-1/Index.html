@@ -17,60 +17,7 @@
 
   <body>
     <div id="root"></div>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        /* border: 1px solid; */
-      }
-
-      .container h2 {
-        text-align: center;
-      }
-
-      table {
-        width: 100%;
-        border: 1px solid;
-        border-collapse: collapse;
-      }
-      tr {
-        border: 1px solid;
-      }
-
-      th,
-      td {
-        border: 1px solid #000000;
-        padding: 5px;
-      }
-
-      th {
-        background-color: #f9f9f9;
-        font-weight: bold;
-      }
-
-      tr:nth-child(even) {
-        background-color: #f2f2f2;
-      }
-
-      .container {
-        margin: 20px;
-      }
-
-      .editable-cell {
-        padding: 0;
-      }
-
-      .editable-cell input {
-        width: 100%;
-        border: none;
-        background-color: transparent;
-        box-sizing: border-box;
-        padding: 4px 8px;
-        font-size: 14px;
-      }
-    </style>
-
+    <link rel="stylesheet" type="text/css" href="index.css">
     <script type="text/babel">
       function App() {
         const [data, setData] = React.useState([
